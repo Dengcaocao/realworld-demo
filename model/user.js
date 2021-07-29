@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const sha1 = require('../utils/sha1')
 
 const userSchema = mongoose.Schema({
   username: {
@@ -11,7 +12,8 @@ const userSchema = mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    set: (val) => sha1(val)
   },
   bio: {
     type: String,

@@ -17,8 +17,10 @@ exports.register = async (req, res, next) => {
      * 3. 验证通过，将数据保存到数据库
      * 4. 响应成功状态码
      */
-    const user = new userModel(req.body.user)
+    let user = new userModel(req.body.user)
     user.save().then(() => {
+      user = user.toJSON()
+      delete user.password
       res.status(200).send(user)
     })
   } catch(err) {
