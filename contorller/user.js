@@ -2,7 +2,10 @@ const { userModel } = require('../model')
 // 登录
 exports.login = async (req, res, next) => {
   try {
-    res.send('登录')
+    let user = JSON.stringify(req.user)
+    user = JSON.parse(user)
+    delete user.password
+    res.send(user)
   } catch(err) {
     next(err)
   }

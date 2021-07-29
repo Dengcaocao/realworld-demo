@@ -5,7 +5,7 @@ const { login, register, currentUser, updateUer } = require('../contorller/user'
 const validate = require('../validate/user-v')
 
 // 登录
-router.post('/users/login', login)
+router.post('/users/login', validate.login, login)
 
 // 注册
 router.post('/users', validate.register, register)
