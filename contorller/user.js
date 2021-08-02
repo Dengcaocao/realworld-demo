@@ -32,11 +32,25 @@ exports.register = async (req, res, next) => {
 }
 
 // 获取当前用户
-exports.currentUser = (req, res) => {
-  res.send('获取当前用户')
+exports.currentUser = async (req, res, next) => {
+  try {
+    res.send('获取当前用户')
+  } catch (err) {
+    next(err)
+  }
 }
 
 // 更新用户
-exports.updateUer = (req, res) => {
-  res.send('更新用户')
+exports.updateUer = async (req, res, next) => {
+  try {
+    console.log(req.body)
+    // let arr = []
+    // for(let i in req.body.user) {
+    //   console.log(i)
+    // }
+    const updateUser = userModel.updateOne({_id: '6103b77188e2fad6574cde91'}, {$set: req.body.user})
+    res.send(updateUser)
+  } catch (err) {
+    next(err)
+  }
 }

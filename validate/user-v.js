@@ -57,3 +57,8 @@ exports.login = [
       })
   ])
 ]
+
+exports.update = validate([
+  body('user.email')
+    .isEmail().withMessage('邮箱格式不正确')
+])
