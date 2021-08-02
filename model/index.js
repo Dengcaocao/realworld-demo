@@ -16,5 +16,6 @@ db.on('error', () => {
 })
 
 module.exports = {
-  userModel: mongoose.model('user', require('./user'))
+  userModel: mongoose.model('user', require('./user')),
+  articleModel: mongoose.model('articles', require('./articles-m'))
 }
