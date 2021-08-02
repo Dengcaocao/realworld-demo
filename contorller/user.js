@@ -1,6 +1,7 @@
 const { userModel } = require('../model')
 const { jwtSecret } = require('../config/config.default')
 const jwt = require('../utils/jwt')
+
 // 登录
 exports.login = async (req, res, next) => {
   try {
@@ -39,8 +40,12 @@ exports.register = async (req, res, next) => {
 }
 
 // 获取当前用户
-exports.currentUser = (req, res) => {
-  res.send('获取当前用户')
+exports.currentUser = async (req, res, next) => {
+  try{
+    res.status(200).send(req.user)
+  } catch (err) {
+    next(err)
+  }
 }
 
 // 更新用户

@@ -41,7 +41,7 @@ exports.login = [
   validate([
     body('user.email')
       .custom(async (email, { req }) => {
-        const user = await userModel.findOne({email}, {_id: 0, email: 1, username: 1, bio: 1, image: 1, password: 1,})
+        const user = await userModel.findOne({email}, {email: 1, username: 1, bio: 1, image: 1, password: 1,})
         req.user = user
         if (!user) {
           return Promise.reject('用户不存在存在')

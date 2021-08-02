@@ -13,6 +13,7 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     required: true,
+    select: false,
     set: (val) => sha1(val)
   },
   bio: {
