@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
+const auth = require('../middleware/auth')
+const article = require('../validate/articles-v')
+
 const {
   listArticles,
   feedArticles,
@@ -27,7 +30,7 @@ router.get('/articles/feed', feedArticles)
 router.get('/articles/:slug', getArticle)
 
 // createArticle
-router.post('/articles', createArticle)
+router.post('/articles', auth, article.createArticle, createArticle)
 
 // updateArticle
 router.put('/articles/:slug', updateArticle)

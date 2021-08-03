@@ -2,28 +2,29 @@ const mongoose = require('mongoose')
 const sha1 = require('../utils/sha1')
 
 const userSchema = mongoose.Schema({
-  username: {
+  title: {
     type: String,
     required: true
   },
-  email: {
+  description: {
     type: String,
     required: true
   },
-  password: {
+  body: {
     type: String,
-    required: true,
-    select: false,
-    set: (val) => sha1(val)
+    required: true
   },
-  bio: {
-    type: String,
-    default: ''
+  tagList: {
+    type: [String],
+    default: []
   },
-  image: {
-    type: String,
-    default: null
+  favoritesCount: {
+    type: Number,
+    default: 0
   },
+  // author: {
+
+  // },
   createdAt: {
     type: Date,
     default: Date.now
