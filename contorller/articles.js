@@ -11,8 +11,14 @@ exports.feedArticles = (req, res) => {
 }
 
 // Get Article
-exports.getArticle = (req, res) => {
-  res.send('Get Article')
+exports.getArticle = async (req, res) => {
+  try {
+    const { slug } = req.params
+    const article = await articleModel.findById(slug)
+    res.status(200).send(article)
+  } catch(err) {
+    next(err)
+  }
 }
 
 // Create Article
