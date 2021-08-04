@@ -2,20 +2,23 @@ const { articleModel } = require('../model')
 
 // List Articles
 exports.listArticles = async (req, res) => {
+  const { offset = 0, limit = 10 } = req.query
   let queryObj = {}
   for (let i in req.query) {
-    if (i !== 'offset' || i !== 'limit') {
-      queryObj.$and = []
+    if (i !== 'offset' && i !== 'limit') {
       if (i === 'tag') {
-        queryObj.$and.push({tagList: {$in: [req.query[i]]}})
+        queryObj.tagList = req.query[i]
+      } else {
+        queryObj[i] = req.query[i]
       }
-      queryObj.$and.push({i: req.query[i]})
     }
   }
-  const count = await articleModel.count()
+  const count = await articleModel.find(queryObj).count()
   const article = await articleModel.find(queryObj).skip(parseInt(offset)).limit(parseInt(limit))
-  console.log(article)
-  res.send(article)
+  res.status(200).send({
+    articles: article,
+    total: count
+  })
 }
 
 // Feed Articles
