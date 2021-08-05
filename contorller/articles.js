@@ -14,7 +14,7 @@ exports.listArticles = async (req, res) => {
     }
   }
   const count = await articleModel.find(queryObj).count()
-  const article = await articleModel.find(queryObj).skip(parseInt(offset)).limit(parseInt(limit))
+  const article = await articleModel.find(queryObj).populate('author').skip(parseInt(offset)).limit(parseInt(limit)).sort({createdAt: -1})
   res.status(200).send({
     articles: article,
     total: count
