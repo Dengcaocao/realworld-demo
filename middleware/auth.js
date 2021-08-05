@@ -11,7 +11,6 @@ module.exports = async (req, res, next) => {
 
   try {
     const decodeToken = await jwt.verify(token, jwtSecret)
-    console.log(decodeToken.userId)
     req.user = await userModel.findById(decodeToken.userId)
     next()
   } catch (err) {

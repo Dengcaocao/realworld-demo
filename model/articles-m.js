@@ -1,7 +1,9 @@
 const mongoose = require('mongoose')
 const sha1 = require('../utils/sha1')
 
-const userSchema = mongoose.Schema({
+const Schema = mongoose.Schema
+
+const articleSchema = mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -22,9 +24,11 @@ const userSchema = mongoose.Schema({
     type: Number,
     default: 0
   },
-  // author: {
-
-  // },
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'user',
+    required: true
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -35,4 +39,4 @@ const userSchema = mongoose.Schema({
   }
 })
 
-module.exports = userSchema
+module.exports = articleSchema

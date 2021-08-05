@@ -41,6 +41,8 @@ exports.getArticle = async (req, res) => {
 exports.createArticle = async (req, res, next) => {
   try{
     let article = new articleModel(req.body.article)
+    article.author = req.user._id
+    article.populate('author').execPopulate()
     article = await article.save()
     res.status(200).send(article)
   } catch(err) {
