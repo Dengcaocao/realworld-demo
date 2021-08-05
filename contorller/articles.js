@@ -27,10 +27,13 @@ exports.feedArticles = (req, res) => {
 }
 
 // Get Article
-exports.getArticle = async (req, res) => {
+exports.getArticle = async (req, res, next) => {
   try {
     const { slug } = req.params
-    const article = await articleModel.findById(slug)
+    const article = await articleModel.findById(slug).populate('author')
+    if (!article) {
+      return res.status(404).send('未查询到相关文章')
+    }
     res.status(200).send(article)
   } catch(err) {
     next(err)

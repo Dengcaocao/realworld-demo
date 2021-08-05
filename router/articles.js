@@ -27,7 +27,7 @@ router.get('/articles', listArticles)
 router.get('/articles/feed', feedArticles)
 
 // getArticle
-router.get('/articles/:slug', getArticle)
+router.get('/articles/:slug', article.articleId, getArticle)
 
 // createArticle
 router.post('/articles', auth, article.createArticle, createArticle)
