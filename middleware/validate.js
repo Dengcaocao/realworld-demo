@@ -1,6 +1,7 @@
-const { validationResult } = require('express-validator')
+const { validationResult, buildCheckFunction } = require('express-validator')
+const { isValidObjectId } = require('mongoose')
 
-module.exports = validations => {
+exports = module.exports = validations => {
   return async (req, res, next) => {
     await Promise.all(validations.map(validation => validation.run(req)))
 
@@ -11,4 +12,12 @@ module.exports = validations => {
 
     res.status(400).json({ errors: errors.array() })
   }
+}
+
+exports.checkArticleID = (location, fields) => {
+  return buildCheckFunction(location)(fields).custom(async val => {
+    if (!isValidObjectId(val)) {
+      return Promise.reject('不是一个有效的文章ID ')
+    }
+  })
 }
