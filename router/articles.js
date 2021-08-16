@@ -33,10 +33,10 @@ router.get('/articles/:slug', article.articleId, getArticle)
 router.post('/articles', auth, article.createArticle, createArticle)
 
 // updateArticle
-router.put('/articles/:slug', updateArticle)
+router.put('/articles/:slug', auth, article.updateArticle, updateArticle)
 
 // deleteArticle
-router.delete('/articles/:slug', deleteArticle)
+router.delete('/articles/:slug', auth, article.deleteArticle, deleteArticle)
 
 // addCTA
 router.post('/articles/:slug/comments', addCTA)
