@@ -72,8 +72,14 @@ exports.updateArticle = async (req, res, next) => {
 }
 
 // Delete Article
-exports.deleteArticle = (req, res) => {
-  res.send('Delete Article')
+exports.deleteArticle =async (req, res, next) => {
+  try {
+    const article = req.article
+    await article.remove()
+    res.status(200).send('删除成功')
+  }catch(err) {
+    next(err)
+  }
 }
 
 // Add Comments to an Article
