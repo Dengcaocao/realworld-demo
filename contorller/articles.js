@@ -54,8 +54,21 @@ exports.createArticle = async (req, res, next) => {
 }
 
 // Update Article
-exports.updateArticle = (req, res) => {
-  res.send('Update Article')
+exports.updateArticle = async (req, res, next) => {
+  try {
+    let article = req.article
+    const bodyArticle = req.body.article
+    let arr = ['tagList', 'favoritesCount', 'title', 'description', 'body']
+    for(let i in article) {
+      if (arr.includes(i)) {
+        article[i] = bodyArticle[i] || article[i]
+      }
+    }
+    await article.save()
+    res.status(200).send(article)
+  } catch(err) {
+    next(err)
+  }
 }
 
 // Delete Article
